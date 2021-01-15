@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Test GITS</title>
+</head>
+<body>
+    <div>
+        <div style="text-align: center;">
+            <h1>Technical Test GITS</h1>
+            <h5>Septian Maulana Yusuf</h5>
+            <hr>
+        </div>
+        
+        <h1>Reversing Character</h1>
+        <div><p>Input Example : Hello</p></div>
+        <form>
+            <input type="text" id="character" placeholder="Input here"/>
+            <input type="button" onClick="reverse();" value="Reverse" />
+        </form>
+        <hr/>
+        <h1>Balance Brackets</h1>
+        <div><p>Input Example : ({[]})</p></div>
+        <form>
+            <input type="text" id="brackets" placeholder="Input Here"/>
+            <input type="button" value="Check" onclick="checkBalanceBrackets();" />
+        </form>
+        <hr/>
+        <h1>Find Maximum Number Consecutives Ones</h1>
+        <div><p>Input Example : 11001111</p></div>
+        <form>
+            <input type="text" id="number" placeholder="Input Number Here"/>
+            <input type="button" value="Find" onclick="findConsecutivesOnes();" />
+        </form>
+    </div>
+    <script>
+        //Function Reverse Character
+        function reverseString(str) {
+            if (str === "")
+                return "";
+            else
+                return reverseString(str.substr(1)) + str.charAt(0);
+        }
+
+        function reverse(){
+            var character = document.getElementById("character").value;
+            alert(character +" Reverse to " +reverseString(character));
+        }
+
+        //End of Action Reverse Character
+
+        //Check Balance Brackets
+        function braces(values) {
+            var ret = [];
+
+            for (var i = 0; i < values.length; i++) {
+                ret.push(balancedBraces(values[i]));
+            }
+
+            return ret;
+        }
+
+        function balancedBraces(inputStr) {
+            var checkStr = "[]{}()";
+            var stack = [];
+            var i, character, bracePosition;
+
+            for (i = 0; character = inputStr[i]; i++) {
+                bracePosition = checkStr.indexOf(character);
+
+                if (bracePosition === -1) {
+                continue;
+                }
+
+                if (bracePosition % 2 === 0) {
+                stack.push(bracePosition + 1);
+                } else if (stack.pop() !== bracePosition) {
+                return 'NO';
+                }
+            }
+
+            return stack.length === 0 ? 'YES' : 'NO';
+        }
+
+        function checkBalanceBrackets() {
+            var values = [document.getElementById("brackets").value];
+            var res = braces(values);
+            alert(res);
+        }
+        // End of Check Balance Brackets Action
+       
+        //Find Consecutives Ones 
+
+        function findConsecutivesOnes(){
+            var n =  document.getElementById("number").value;
+            var nums = Array.from(n.toString()).map(Number);
+
+            var maxCount = 0;
+            var count = 0;
+            for (var i in nums) {
+                count = nums[i] === 1 ? count + 1 : 0;
+                if (count > maxCount) {
+                    maxCount = count;
+                }
+            }
+            window.alert("["+ nums + "] \n The maximum number of consecutives 1s is "+ maxCount);
+        }
+
+           
+    </script>
+</body>
+</html>
